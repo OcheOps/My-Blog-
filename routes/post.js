@@ -62,3 +62,15 @@ router.put('/:id', async (req, res, next) => {
     data: { post },
   });
 });
+/* DELETE post */
+router.delete('/:id', async (req, res, next) => {
+  // Mongo stores the id as `_id` by default
+  const result = await Post.deleteOne({ _id: req.params.id });
+  return res.status(200).json({
+    statusCode: 200,
+    message: `Deleted ${result.deletedCount} post(s)`,
+    data: {},
+  });
+});
+
+module.exports = router;
