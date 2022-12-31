@@ -25,4 +25,23 @@ router.get('/:id', async (req, res, next) => {
          post: post || {},
        },
      });
+   });/* POST post */
+   router.post('/', async (req, res, next) => {
+     const { title, author, content, tags } = req.body;
+   
+     // Create a new post
+     const post = new Post({
+       title,
+       author,
+       content,
+       tags,
+     });
+   
+     // Save the post into the DB
+     await post.save();
+     return res.status(201).json({
+       statusCode: 201,
+       message: 'Created post',
+       data: { post },
+     });
    });
